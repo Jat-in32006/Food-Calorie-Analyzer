@@ -23,7 +23,7 @@ import torch
 import torch.nn as nn
 from PIL import Image
 from torch.cuda import amp
-from keras.applications.vgg16 import VGG16
+#from keras.applications.vgg16 import VGG16
 
 from utils import TryExcept
 from utils.dataloaders import exif_transpose, letterbox
@@ -600,9 +600,9 @@ class DetectMultiBackend(nn.Module):
     def _model_type(p='path/to/model.pt'):
         # Return model type from model path, i.e. path='path/to/model.onnx' -> type=onnx
         # types = [pt, jit, onnx, xml, engine, coreml, saved_model, pb, tflite, edgetpu, tfjs, paddle]
-        from export import export_formats
+        #from export import export_formats
         from utils.downloads import is_url
-        sf = list(export_formats().Suffix)  # export suffixes
+        sf = ['.pt', '.torchscript', '.onnx', '_openvino_model', '.engine', '.mlmodel', '_saved_model', '.pb', '.tflite', '_edgetpu.tflite', '_web_model', '_paddle_model']
         if not is_url(p, check=False):
             check_suffix(p, sf)  # checks
         url = urlparse(p)  # if url may be Triton inference server
